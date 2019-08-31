@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+    <UI>
+      <Dialog Id="ExitDlg" Width="370" Height="270" Title="[ProductName]">
+        <Control Id="Description" Type="Text" X="50" Y="70" Width="300" Height="80" Text="[ProductName] setup has completed successfully. Click 'Finish' to exit the Setup Wizard." />
+        <Control Id="Finish" Type="PushButton" X="160" Y="223" Width="56" Height="17" Default="yes" Cancel="yes" Text="Finish">
+          <Publish Event="EndDialog" Value="Exit" />
+        </Control>
+      </Dialog>
+    </UI>
+
+    <InstallUISequence>
+      <Show Dialog="ExitDlg" OnExit="success" />
+    </InstallUISequence>
+
+    <AdminUISequence>
+      <Show Dialog="ExitDlg" OnExit="success" />
+    </AdminUISequence>
+  </Fragment>
+</Wix>

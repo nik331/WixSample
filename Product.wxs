@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  
+  <Product Id="*" Name="Wix Sample Project" 
+           Language="1033" 
+           Version="!(wix.BuildVersion)" 
+           Manufacturer="nik.rawat123@gmail.com" 
+           UpgradeCode="0A3C4EA1-3A0C-4182-8F64-004BC3CBEEA0">    
+        <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+    <!-- Reference to our custom action DLL -->
+    <Binary Id="customActionLibrary" SourceFile="$(var.CustomAction.TargetDir)CustomAction.CA.dll" />
+
+    <!-- Reference to our humble dialog sequence -->
+    <UIRef Id="WixUI_Custom" />
+
+    <WixVariable Id="WixUIDialogBmp" Value="$(var.CustomAction.TargetDir)banner.bmp"/>
+    <WixVariable Id="WixUIBannerBmp" Value="$(var.CustomAction.TargetDir)icon.bmp"/>    
+       
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <Feature Id="ProductFeature" Title="SetupInstaller" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+      <ComponentRef Id="LogsFolderComponent" />      
+    </Feature>
+    
+    <!-- Properties for holding Dialog Input -->   
+    <Property Id="RMQ_IP_ADDR" Value="192.168.167.2" Secure="yes" />
+    <Property Id="API_PORT_NUM" Value="5201" Secure="yes" />
+    <Property Id="API_IP_ADDR" Value="192.168.167.4" Secure="yes" />    
+    
+    <!-- Custom action and custom action property setter for setting properties on a deferred custom action since custom actions with deferred can't access installer properties -->
+    <CustomAction Id="ConfigurationJsonAction" Execute="deferred" BinaryKey="customActionLibrary" DllEntry="WriteAppConfiguration" Return="check" Impersonate="no" />
+    <!-- The below Value attribute is a convention recognized by WiX and you can get the things out by just asking the CustomActionData dictionary for things like CustomActionData["CONFIG_DIR"] etc. -->
+    <CustomAction Id="ConfigurationJsonActionDeferredProperties" Property="ConfigurationJsonAction" Value="CONFIG_DIR=[INSTALL_FOLDER];RABBITMQ_IP_PROP=[RMQ_IP_ADDR];API_IP_PROP=[API_IP_ADDR];API_PORT_PROP=[API_PORT_NUM];BUILD_VER_PROP=!(wix.BuildVersion);BUILD_PATH_PROP=[CURRENTDIRECTORY];" />
+    <!--<CustomAction Id="InstallSOSCService" FileKey="Master.exe" ExeCommand="install" />
+    <CustomAction Id="UninstallSOSCService" FileKey="Master.exe" ExeCommand="uninstall" />-->
+    <!-- Executes the custom actions -->
+    <InstallExecuteSequence>
+      <Custom Action="ConfigurationJsonAction" After="ConfigurationJsonActionDeferredProperties" />
+      <Custom Action="ConfigurationJsonActionDeferredProperties" Before="InstallFinalize" />
+      <!--<Custom Action="InstallSOSCService" After="InstallFinalize">NOT REMOVE</Custom>
+      <Custom Action="UninstallSOSCService" Before="InstallInitialize">Installed AND (REMOVE="ALL")</Custom>-->
+    </InstallExecuteSequence>
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="NikhilRawat">
+          <Directory Id="INSTALL_FOLDER" Name="SetUp">
+            <Directory Id="LOGS_FOLDER_ID" Name="Logs">
+              <Component Id="LogsFolderComponent" Guid="{FD1C1636-ACC0-44E8-A54F-A05FEE6AE574}" SharedDllRefCount="no" KeyPath="no" NeverOverwrite="no" Permanent="no" Transitive="no" Win64="no" Location="either">
+                <CreateFolder>
+                  <util:PermissionEx User="LocalService" GenericAll="yes" />
+                </CreateFolder>
+              </Component>
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+  </Fragment>
+</Wix>

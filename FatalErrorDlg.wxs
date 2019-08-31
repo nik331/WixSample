@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+    <UI>
+      <Dialog Id="FatalErrorDlg" Width="370" Height="270" Title="[ProductName]">
+        <Control Id="Description" Type="Text" X="50" Y="40" Width="300" Height="80"
+                 Text="[ProductName] Setup Wizard ended prematurely because of an error. Your system has not been modified. To install this program at a later time, run Setup Wizard again." />
+        <Control Id="Finish" Type="PushButton" X="180" Y="233" Width="56" Height="17" Default="yes" Cancel="yes" Text="Finish">
+          <Publish Event="EndDialog" Value="Exit" />
+        </Control>
+      </Dialog>
+    </UI>
+
+    <InstallUISequence>
+      <Show Dialog="FatalErrorDlg" OnExit="error" />
+    </InstallUISequence>
+
+    <AdminUISequence>
+      <Show Dialog="FatalErrorDlg" OnExit="error" />
+    </AdminUISequence>
+  </Fragment>
+</Wix>
