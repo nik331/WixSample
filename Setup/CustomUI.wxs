@@ -31,22 +31,18 @@
 
       <Dialog Id="CustomDlg" Width="370" Height="270" Title="[ProductName] Setup">
         <Control Type="Text" Id="InstructionText" Width="300" Height="36" X="38" Y="40">
-          <Text>Enter the requested information below to configure the Self Operating Signature Check Master Service.</Text>
+          <Text>Enter the requested information below to configure the Aristocrat XYZ Service.</Text>
         </Control>
 
-        <Control Type="Text" Id="IPRabbitText" Width="52" Height="15" X="38" Y="90">
-          <Text>RabbitMQ IP:</Text>
+        <Control Type="Text" Id="IPRabbitText" Width="152" Height="15" X="38" Y="90">
+          <Text>Aristocrat Service 1 IP:</Text>
         </Control>
-        <Control Type="Edit" Id="IPRabbitMQEdit" Width="80" Height="15" X="105" Y="90" Property="RMQ_IP_ADDR" />
-        <Control Type="Text" Id="IPAPIText" Width="52" Height="15" X="38" Y="115">
-          <Text>MGT API IP:</Text>
+        <Control Type="Edit" Id="IPRabbitMQEdit" Width="80" Height="15" X="205" Y="90" Property="RMQ_IP_ADDR" />
+        
+        <Control Type="Text" Id="IPAPIText" Width="152" Height="15" X="38" Y="115">
+          <Text>Aristocrat Service 2 IP:</Text>
         </Control>
-        <Control Type="Edit" Id="IPAPIEdit" Width="80" Height="15" X="105" Y="115" Property="API_IP_ADDR" />
-
-        <Control Type="Text" Id="PortAPIText" Width="40" Height="15" X="206" Y="115">
-          <Text>API Port:</Text>
-        </Control>
-        <Control Type="Edit" Id="PortAPIEdit" Width="80" Height="15" X="259" Y="115" Property="API_PORT_NUM" />
+        <Control Type="Edit" Id="IPAPIEdit" Width="80" Height="15" X="205" Y="115" Property="API_IP_ADDR" />
 
         <Control Id="InstallButton" Type="PushButton" X="205" Y="233" Width="56" Height="17" Text="Install" TabSkip="no" Default="yes">
           <Publish Event="EndDialog" Value="Return" />

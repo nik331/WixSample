@@ -1,0 +1,43 @@
+{
+  "slaves": [
+    {
+      "ServiceAddress": "rabbitmq://^^RABBITMQ_IP^^:5671/^^CENTRAL_ENDPOINT^^",
+      "ModuleName": "Central",
+      "AssemblyPath": "C:\\Inetpub\\Aristocrat\\ATLSCentral",
+      "ManifestPath": "manifest_central.txt"
+    },
+    {
+      "ModuleName": "Omega",
+      "ServiceAddress": "rabbitmq://^^RABBITMQ_IP^^:5671/^^OMEGA_ENDPOINT^^",
+      "AssemblyPath": "C:\\Program Files (x86)\\Aristocrat\\ATLSOmega",
+      "ManifestPath": "manifest_host.txt"
+    },
+    {
+      "ServiceAddress": "rabbitmq://^^RABBITMQ_IP^^:5671/SelfOperatingSignatureCheckManufacturingManagement",
+      "ModuleName": "Manufacturing",
+      "AssemblyPath": "C:\\Inetpub\\Aristocrat\\ATLSManufacturingApi",
+      "ManifestPath": "manifest_manufacturing.txt"
+    },
+    {
+      "ModuleName": "Management",
+      "ServiceAddress": "rabbitmq://^^RABBITMQ_IP^^:5671/SelfOperatingSignatureCheckManufacturingManagement",
+      "AssemblyPath": "C:\\Inetpub\\Aristocrat\\ATLSManagement",
+      "ManifestPath": "manifest_management.txt"
+    },
+    {
+      "ModuleName": "ManagementConsole",
+      "ServiceAddress": "rabbitmq://^^RABBITMQ_IP^^:5671/SelfOperatingSignatureCheckManufacturingManagement",
+      "AssemblyPath": "C:\\Program Files (x86)\\Aristocrat\\ATLSManagementClient",
+      "ManifestPath": "manifest_management_tool.txt"
+    },
+    {
+      "ModuleName": "Report",
+      "ServiceAddress": "rabbitmq://^^RABBITMQ_IP^^:5671/SelfOperatingSignatureCheckReport",
+      "AssemblyPath": "Database\\SSRSReportsInstaller\\Reports",
+      "ManifestPath": "Database\\SSRSReportsInstaller\\manifest.txt"
+    }
+  ],
+  "buildVersion": "^^BUILD_VER^^",
+  "buildFolderPath": "^^BUILD_PATH^^",
+  "manifestFolderPath": "Manifests\\"
+}

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"><?define CustomAction_TargetDir=$(var.CustomAction.TargetDir)?>
+    <Fragment>
+        <DirectoryRef Id="INSTALL_FOLDER">
+          <Component Id="Icon.bmp" Guid="38ed1d95-f1b9-428e-a8f2-f6734d4168ad">
+            <File Id="Icon.bmp" Name="Icon.bmp" Source="$(var.CustomAction_TargetDir)Icon.bmp" />
+          </Component>
+          <Component Id="banner.bmp" Guid="b2eb9c0e-3d62-475a-bc13-e30dc97652ca">
+            <File Id="banner.bmp" Name="banner.bmp" Source="$(var.CustomAction_TargetDir)banner.bmp" />
+          </Component>      
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+      <ComponentGroup Id="ProductComponents">
+        <ComponentRef Id="Icon.bmp" />
+        <ComponentRef Id="banner.bmp" />
+      </ComponentGroup>
+    </Fragment>   
+</Wix>
